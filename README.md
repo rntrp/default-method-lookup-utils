@@ -17,7 +17,7 @@ The utility class allows you to
 1. invoke the overridden default method on an instance (yes, it's possible)
 2. delegate the invocation call to the default method when using `java.lang.reflect.Proxy`
 
-## Invoking overridden default methods
+## Invoking Overridden Default Methods
 
 First, we implement the interface, e.g. by instantiating an anonymous class:
 
@@ -50,12 +50,12 @@ is not allowed under normal circumstances. Java 7 introduced the `java.lang.invo
 allows for more intricate reflective access. `DefaultMethodLookupUtils` makes use of this API to overcome the
 limitations regarding the superclass method invocation on objects.
 
-## Default methods & `java.lang.reflect.Proxy`
+## Default Methods & `java.lang.reflect.Proxy`
 
 IMHO, that's the main use case for the utility class. The idea behind `java.lang.reflect.Proxy` is to act as an extra
 layer of program logic when calling object methods. It may forward method calls to some kind of delegate object, or it
-may execute its own logic behind curtains. This is actually how the famous "Spring magic" works. Also, most Java mock
-frameworks are basically designed around reflection proxies.
+may execute its own logic behind curtains. This is, for instance, an important part of the famous "Spring magic". Also,
+most Java mock frameworks are basically designed around Java proxies.
 
 Sometimes, when you create a proxy object for an interface, you might also want to invoke default methods _as is_, and
 do some generic stuff for all other methods. Example:
