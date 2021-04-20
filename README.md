@@ -70,7 +70,8 @@ Dog dog = (Dog) Proxy.newProxyInstance(
 dog.woof(); // will it woof?
 ```
 
-Our dog doesn't woof 🤨. Instead, it throws an everlong stacktrace of pretty
+What we expect here, is that `method.invoke(proxy)` will somehow delegate our method call to the default method.
+Unfortunately, it doesn't happen. Our dog doesn't woof. Instead, it throws a lengthy stacktrace of pretty
 vague `InvocationTargetException`s at us.
 
 Let's try it again, but this time with the `DefaultMethodLookupUtils`:
@@ -98,8 +99,8 @@ Even though the `MethodHandle` API is present since Java 7, its behaviour depend
 
 * Java 7 and 8 must call a private constructor of `MethodHandles.Lookup`. Obviously, it's no good, if the program runs
   under a `SecurityManager` with draconian security policy, so you may want to loosen these restrictions. Since default
-  methods were introduced in Java 8, on Java 7 the utility class functionality is limited to calling the overridden
-  default methods. This approach throws an `IllegalAccessException` with later Java versions.
+  methods were introduced in Java 8, on Java 7 the utility class functionality is limited to calling overridden object
+  methods. This approach throws an `IllegalAccessException` with later Java versions.
 * With Java 9 onwards there is no need in calling any private constructor, since `MethodHandles.lookup()` is now capable
   of finding default interface methods. However, this method doesn't work with Java 7 and 8, but the method itself is
   present.
